@@ -1,0 +1,25 @@
+# Run with:  ambiciosa simulate examples/cautious_vs_bold.yaml
+name: Cautious vs bold
+n_games: 20000
+master_seed: 42          # omit for a random seed (it is stored with the run)
+# record_level: summary  # default: full up to 10,000 games, summary above
+target: 1000
+end_rule: first_to_target
+max_turns: 500
+# face_weights: [1, 1, 1, 1, 1, 1]   # order 9, 10, J, Q, K, A
+# scoring:                          # change any of the six scores; the rest keep their defaults
+#   ace: 10
+#   king: 5
+#   three_aces: 100
+#   three_kings: 50
+#   three_tens: -100
+#   three_nines: -300
+players:
+  - Stop at 30                     # a preset, by name (see `ambiciosa presets`)
+  - name: Bold
+    strategy:
+      name: Stop at 60
+      type: threshold
+      params: {threshold: 60}
+  - name: Adaptive
+    strategy: Safe ahead, bold behind

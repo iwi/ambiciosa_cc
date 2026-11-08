@@ -1,0 +1,50 @@
+[project]
+name = "ambiciosa"
+version = "1.0.0"
+description = "Play, simulate and analyse the dice game Ambiciosa"
+requires-python = ">=3.12"
+readme = "README.md"
+dependencies = [
+    "duckdb>=1.1",
+    "fastapi>=0.110",
+    "numpy>=2.0",
+    "pyarrow>=15",
+    "pydantic>=2.6",
+    "pytz",          # DuckDB needs it to return TIMESTAMPTZ values
+    "pyyaml>=6",
+    "uvicorn>=0.29",
+]
+
+[project.scripts]
+ambiciosa = "ambiciosa.simulation.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27", "playwright>=1.40"]
+
+[tool.uv]
+# `uv sync` installs the app and the development tools from uv.lock (exact versions).
+default-groups = ["dev"]
+
+[dependency-groups]
+dev = ["pytest>=8", "httpx>=0.27", "playwright>=1.40"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ambiciosa*"]
+
+[tool.setuptools.package-data]
+"ambiciosa.persistence" = ["schema.sql"]
+"ambiciosa" = ["web_dist/*", "web_dist/assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "statistical: Monte Carlo checks with fixed seeds (slower)",
+    "multiprocess: starts worker processes (slower)",
+    "e2e: drives the built web app in a real browser (needs Playwright's Chromium)",
+]
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient` is deprecated"]
