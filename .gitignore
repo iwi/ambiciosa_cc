@@ -1,2 +1,40 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
 .venv/
-*.duckdb.*
+venv/
+env/
+
+# Python packaging and build artifacts
+*.egg-info/
+build/
+dist/
+
+# DuckDB database files
+*.duckdb
+*.duckdb.wal
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Temporary files
+*.log
+*.tmp
